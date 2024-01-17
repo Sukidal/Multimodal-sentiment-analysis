@@ -155,9 +155,7 @@ def model_train():
 def model_test():
     """利用训练好的./model.pth对测试集进行预测，结果保存至output/test_with_label.txt"""
 
-    train_data_list, test_data_list = get_data_list()
-    train_data_list, test_data_list = data_preprocess(train_data_list, test_data_list)
-    train_data_loader, valid_data_loader, test_data_loader = get_data_loader(train_data_list, test_data_list)
+    train_data_loader, valid_data_loader, test_data_loader = get_data_loader()
     if args.model == 'AttentionCatModel':
         model = AttentionCatModel.from_pretrained('./pre_trained/bert-base-uncased')
     elif args.model == 'AttentionAddModel':
