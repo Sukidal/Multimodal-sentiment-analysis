@@ -31,6 +31,8 @@
 │       └── data_preprocess.py     #数据预处理的处理器类
 ```
 
+注：data目录和pre_trained目录由于太大，没有传到github上，如果需要运行main.py，请将实验5数据集解压到该项目目录下，并将microsoft/resnet152和bert-base-uncased预训练模型下载好放在pre_trained目录中
+
 ## Requirements
 
 ```sh
