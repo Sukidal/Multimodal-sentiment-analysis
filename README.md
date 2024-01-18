@@ -31,7 +31,7 @@
 │       └── data_preprocess.py     #数据预处理的处理器类
 ```
 
-注：data目录和pre_trained目录由于太大，没有传到github上，如果需要运行main.py，请将实验5数据集解压到该项目目录下，并将microsoft/resnet152和bert-base-uncased预训练模型下载好放在pre_trained目录中
+**注：data目录和pre_trained目录由于太大，没有传到github上，如果需要运行main.py，请将实验5数据集解压到该项目目录下，并将microsoft/resnet152和bert-base-uncased预训练模型下载好放在pre_trained目录中**
 
 ## Requirements
 
@@ -86,6 +86,33 @@ python main.py --do_test --model AttentionAddModel
 训练会比较耗时，epoch为5的话 我在云主机上跑了大概20分钟
 
 测试完成后会在output文件夹中生成对应文件，如果是用AttentionCatModel测试的话，运行结果文件名为AttentionCatModel_test_with_label.txt，其他model类似
+
+**注：如果在linux系统上跑，可能会报如下错误**
+
+```python
+OSError: [Errno 24] Too many open files
+```
+
+**报错原因为文件句柄数过多，linux系统打开文件默认最多1024个，因此需要修改文件句柄数，完成如下操作即可修改文件句柄数**
+
+```sh
+1.打开/etc/security/limits.conf，里面有很详细的注释，找到如下设置(如果没有就插入)  
+* soft nofile 51200   
+* hard nofile 51200  
+2.编辑/etc/pam.d/common-session，加入一行  
+session required pam_limits.so  
+3.编辑/etc/profile，加入  
+ulimit -SHn 51200  
+4.设置虚拟内存：  
+ulimit -v unlimited  
+```
+
+然后重启主机，执行如下命令，若输出是51200，而不是1024，则文件句柄数修改成功，上述main.py可以正常运行
+
+```sh
+ulimit -n
+#51200
+```
 
 ## 实验结果
 
